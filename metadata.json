@@ -1,0 +1,6 @@
+{
+  "name": "Asesorías y Consultorías Lykke",
+  "description": "Asesoría en psicología y bienestar danés Lykke, diario emocional seguro encriptado, club de consultoría, gamificación con recompensas y regalos animados, chat de desahogo y consultas profesionales.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
