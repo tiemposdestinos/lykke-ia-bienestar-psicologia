@@ -40,6 +40,7 @@ import com.example.audio.LykkeVoiceManager
 import com.example.data.model.TextColorChoice
 import com.example.ui.NavigationScreen
 import com.example.ui.activities.CodigoActivacionActivity
+import com.example.ui.components.DialogoBuildApkYGoogleServices
 import com.example.ui.components.DialogoLecturasFamilia
 import com.example.ui.components.DialogoRegaloAmorPropio
 import com.example.ui.components.DialogoVozInteligenteLykke
@@ -89,6 +90,7 @@ fun HomeScreen(
     var mostrarDialogoBaseCompletaHome by remember { mutableStateOf(false) }
     var mostrarDialogoRegaloAmorPropio by remember { mutableStateOf(false) }
     var mostrarDialogoLecturasFamilia by remember { mutableStateOf(false) }
+    var mostrarDialogoBuildApk by remember { mutableStateOf(false) }
     var climaSensacionTermica by remember { mutableStateOf<String?>(null) }
     val persistentes = remember { PreferenciasPersistentes.getInstance(context) }
     var totalRegalosPersistentes by remember { mutableIntStateOf(persistentes.contadorRegalos) }
@@ -518,6 +520,86 @@ fun HomeScreen(
                         imageVector = Icons.Default.ChevronRight,
                         contentDescription = "Abrir",
                         tint = Color(0xFF34D399),
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        }
+
+        // Botón de Estado del Build: Build ➔ Build App Bundle(s)/APK(s) ➔ Build APK(s) & google-services.json
+        item {
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF0D253A)),
+                border = BorderStroke(
+                    1.2.dp,
+                    Brush.horizontalGradient(listOf(Color(0xFF38BDF8), Color(0xFF34D399)))
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { mostrarDialogoBuildApk = true }
+                    .testTag("btn_home_build_apk_google_services")
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF38BDF8).copy(alpha = 0.25f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Android,
+                                contentDescription = null,
+                                tint = Color(0xFF38BDF8),
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = "Build APK & Google Services",
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFFFFD54F)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Surface(
+                                    shape = RoundedCornerShape(4.dp),
+                                    color = Color(0xFF064E3B)
+                                ) {
+                                    Text(
+                                        text = "google-services.json ✓",
+                                        fontSize = 8.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color(0xFF34D399),
+                                        modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "Build ➔ Build App Bundle(s)/APK(s) ➔ Build APK(s) (app-debug.apk listo)",
+                                fontSize = 10.5.sp,
+                                color = Color(0xFFE2E8F0)
+                            )
+                        }
+                    }
+
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = "Abrir",
+                        tint = Color(0xFF38BDF8),
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -1346,6 +1428,13 @@ fun HomeScreen(
     if (mostrarDialogoLecturasFamilia) {
         DialogoLecturasFamilia(
             onDismiss = { mostrarDialogoLecturasFamilia = false }
+        )
+    }
+
+    // Modal Diálogo: Build APK & Google Services (Firebase)
+    if (mostrarDialogoBuildApk) {
+        DialogoBuildApkYGoogleServices(
+            onDismiss = { mostrarDialogoBuildApk = false }
         )
     }
 

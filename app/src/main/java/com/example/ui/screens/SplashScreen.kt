@@ -50,9 +50,9 @@ fun SplashScreen(
         }
     }
 
-    // Duración cinematográfica extendida a 13.8 segundos (~10 segundos más) con experiencia 3D continua
+    // Duración cinematográfica estilo PlayStation calibrada a ~42 segundos (aprox 45s o un poco menos)
     LaunchedEffect(Unit) {
-        delay(13800)
+        delay(42000)
         onSplashFinished()
     }
 
@@ -329,22 +329,14 @@ fun SplashScreen(
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(165.dp)
+                        .size(175.dp)
                         .graphicsLayer {
                             rotationY = tiltY
                             rotationX = tiltX
                             cameraDistance = 18f * density
                         }
                         .clip(CircleShape)
-                        .background(
-                            Brush.radialGradient(
-                                listOf(
-                                    Color(0xFF0F2B48),
-                                    Color(0xFF0A192F),
-                                    Color(0xFF040A14)
-                                )
-                            )
-                        )
+                        .background(Color(0xFF0E192F))
                         .border(
                             width = 2.5.dp,
                             brush = Brush.linearGradient(
@@ -358,10 +350,13 @@ fun SplashScreen(
                             shape = CircleShape
                         )
                 ) {
-                    // Sinapsis animada y árbol de la vida
-                    com.example.ui.components.LykkeSynapseAnimation(
-                        size = 145.dp,
-                        showAura = true
+                    // Logotipo oficial con fondo azul que contiene la imagen del cerebro (I.A. Conciencia)
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logo_app_icon_circular),
+                        contentDescription = "Logotipo Oficial Lykke Conciencia I.A.",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
                     )
                 }
             }
